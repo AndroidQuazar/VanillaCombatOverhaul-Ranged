@@ -13,18 +13,21 @@ using HarmonyLib;
 namespace VCORanged
 {
 
-    [StaticConstructorOnStartup]
     public static class Patch_VerbProperties
     {
 
+        [HarmonyPatch(typeof(VerbProperties), nameof(VerbProperties.GetHitChanceFactor))]
         public static class GetHitChanceFactor
         {
 
             public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
             {
-                var instructionList = instructions.ToList();
+                #if DEBUG
+                    Log.Message("Transpiler start: VerbProperties.GetHitChanceFactor (2 matches)");
+                #endif
 
-                var lastValueLoadInstruction = instructionList.Last(i => i.opcode == OpCodes.Ldloc_0);
+
+                var instructionList = instructions.ToList();
 
                 for (int i = 0; i < instructionList.Count; i++)
                 {
@@ -32,15 +35,36 @@ namespace VCORanged
 
                     yield return instruction;
 
-                    // Look for the last instruction that loads 'value' local variable and remove all instructions ahead except the last one
-                    if (instruction == lastValueLoadInstruction)
+                    // Look for an instruction that loads local variable 'value'
+                    if (instruction.opcode == OpCodes.Ldloc_0)
                     {
-                        while (true)
+                        #if DEBUG
+                            Log.Message("JobDriver_ManTurret.FindAmmoForTurret match 1 of 2");
+                        #endif
+                        
+                        // Check if this is the last loading of that variable (other than the one that precedes ret)
+                        bool lastInstruction = true;
+                        int j = 1;
+                        while (i + j < instructionList.Count)
                         {
-                            int j = i + 1;
-                            if (j == instructionList.Count)
+                            if (instructionList[i + j].opcode == instruction.opcode && instructionList[i + j + 1].opcode != OpCodes.Ret)
+                            {
+                                lastInstruction = false;
                                 break;
-                            instructionList.RemoveAt(j);
+                            }
+                            j++;
+                        }
+
+                        // If so, remove all instructions ahead except the last
+                        if (lastInstruction)
+                        {
+                            #if DEBUG
+                                Log.Message("JobDriver_ManTurret.FindAmmoForTurret match 2 of 2");
+                            #endif
+                            
+                            j = i + 1;
+                            while (j < instructionList.Count - 1)
+                                instructionList.RemoveAt(j);
                         }
                     }
                 }

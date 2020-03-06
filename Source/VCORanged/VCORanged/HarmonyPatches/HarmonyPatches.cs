@@ -19,6 +19,10 @@ namespace VCORanged
 
         static HarmonyPatches()
         {
+            #if DEBUG
+                Harmony.DEBUG = true;
+            #endif
+
             VCORanged.harmonyInstance.PatchAll();
         }
 

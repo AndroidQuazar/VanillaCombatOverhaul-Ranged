@@ -18,10 +18,23 @@ namespace VCORanged
 
         public VCORanged(ModContentPack content) : base(content)
         {
+            #if DEBUG
+                Log.Error("Somebody left debugging enabled in Vanilla Combat Overhaul Ranged - please let him know!");
+            #endif
+
+            settings = GetSettings<VCORangedSettings>();
             harmonyInstance = new Harmony("OskarPotocki.VanillaCombatOverhaul.RangedModule");
         }
 
+        public override string SettingsCategory() => "VCO.RangedModule.SettingsCategory".Translate();
+
+        public override void DoSettingsWindowContents(Rect inRect)
+        {
+            settings.DoWindowContents(inRect);
+        }
+
         public static Harmony harmonyInstance;
+        public static VCORangedSettings settings;
 
     }
 

@@ -1,3 +1,4 @@
 D:\Documents\GitHub\VanillaCombatOverhaul-Ranged\1.1\Assemblies\VCORanged.dll
 D:\Documents\GitHub\VanillaCombatOverhaul-Ranged\Source\VCORanged\VCORanged\obj\Debug\VCORanged.csprojAssemblyReference.cache
 D:\Documents\GitHub\VanillaCombatOverhaul-Ranged\Source\VCORanged\VCORanged\obj\Debug\VCORanged.dll
+D:\Documents\GitHub\VanillaCombatOverhaul-Ranged\Source\VCORanged\VCORanged\obj\Debug\VCORanged.csproj.CopyComplete
