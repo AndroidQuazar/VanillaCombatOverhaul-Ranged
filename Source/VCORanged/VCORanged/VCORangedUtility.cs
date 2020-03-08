@@ -76,7 +76,7 @@ namespace VCORanged
 
         public static float TotalHitScore(this ShotReport report)
         {
-            return AimOnTargetScore(report) + (float)NonPublicFields.ShotReport_coversOverallBlockChance.GetValue(report);
+            return AimOnTargetScore(report) - (float)NonPublicFields.ShotReport_coversOverallBlockChance.GetValue(report);
         }
 
 

@@ -365,13 +365,13 @@ namespace VCORanged
                     if (__instance.PassCoverChance < 1f)
                     {
                         float coversOverallBlockChance = (float)NonPublicFields.ShotReport_coversOverallBlockChance.GetValue(__instance);
-                        reportBuilder.AppendLine("   " + "ShootingCover".Translate() + "        " + coversOverallBlockChance.ToStringByStyle(ToStringStyle.FloatOne, ToStringNumberSense.Offset));
+                        reportBuilder.AppendLine("   " + "ShootingCover".Translate() + "        " + (coversOverallBlockChance * -1).ToStringByStyle(ToStringStyle.FloatOne, ToStringNumberSense.Offset));
                         for (int i = 0; i < coverList.Count; i++)
                         {
                             CoverInfo coverInfo = coverList[i];
-                            if (coverInfo.BlockChance < 0)
+                            if (coverInfo.BlockChance > 0)
                             {
-                                reportBuilder.AppendLine("     " + "CoverThingBlocksPercentOfShots".Translate(coverInfo.Thing.LabelCap, Mathf.Abs(coverInfo.BlockChance).ToStringByStyle(ToStringStyle.FloatOne, ToStringNumberSense.Absolute), new NamedArgument(coverInfo.Thing.def, "COVER")).CapitalizeFirst());
+                                reportBuilder.AppendLine("     " + "CoverThingBlocksPercentOfShots".Translate(coverInfo.Thing.LabelCap, coverInfo.BlockChance.ToStringByStyle(ToStringStyle.FloatOne, ToStringNumberSense.Absolute), new NamedArgument(coverInfo.Thing.def, "COVER")).CapitalizeFirst());
                             }
                         }
                     }
