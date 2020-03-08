@@ -76,7 +76,7 @@ namespace VCORanged
 
         public static float TotalHitScore(this ShotReport report)
         {
-            return AimOnTargetScore(report);
+            return AimOnTargetScore(report) + (float)NonPublicFields.ShotReport_coversOverallBlockChance.GetValue(report);
         }
 
 
@@ -86,16 +86,15 @@ namespace VCORanged
 
         public static readonly SimpleCurve AccuracyScoreToPercentageCurve = new SimpleCurve()
         {
-            new CurvePoint(-50, 0.01f),
-            new CurvePoint(-25, ShootTuning.MinAccuracyFactorFromShooterAndDistance),
-            new CurvePoint(-20, ShootTuning.MinAccuracyFactorFromShooterAndDistance * 2),
-            new CurvePoint(-15, 0.0875f),
-            new CurvePoint(-10, 0.175f),
-            new CurvePoint(-5, 0.35f),
-            new CurvePoint(0, 0.70f),
-            new CurvePoint(10, 0.90f),
-            new CurvePoint(20, 0.98f),
-            new CurvePoint(40, 0.99f)
+            new CurvePoint(-60, 0.01f),
+            new CurvePoint(-40, 0.02f),
+            new CurvePoint(-30, 0.04f),
+            new CurvePoint(-20, 0.10f),
+            new CurvePoint(-10, 0.25f),
+            new CurvePoint(0, 0.7f),
+            new CurvePoint(10, 0.9f),
+            new CurvePoint(20, 0.99f),
+            new CurvePoint(40, 1.00f),
         };
 
         public static readonly SimpleCurve DistanceToAccuracyScoreCurve = new SimpleCurve()

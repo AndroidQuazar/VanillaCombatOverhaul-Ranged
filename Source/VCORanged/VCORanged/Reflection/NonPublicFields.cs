@@ -27,6 +27,7 @@ namespace VCORanged
         public static FieldInfo ShotReport_forcedMissRadius = AccessTools.Field(typeof(ShotReport), "forcedMissRadius");
         public static FieldInfo ShotReport_coveringGas = AccessTools.Field(typeof(ShotReport), "coveringGas");
         public static FieldInfo ShotReport_covers = AccessTools.Field(typeof(ShotReport), "covers");
+        public static FieldInfo ShotReport_coversOverallBlockChance = AccessTools.Field(typeof(ShotReport), "coversOverallBlockChance");
         #endregion
 
     }

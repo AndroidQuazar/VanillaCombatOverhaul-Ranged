@@ -139,7 +139,19 @@ namespace VCORanged
 
         }
 
+        [HarmonyPatch(typeof(ShotReport), nameof(ShotReport.PassCoverChance), MethodType.Getter)]
+        public static class get_PassCoverChance
+        {
 
+            public static bool Prefix(ShotReport __instance, ref float __result)
+            {
+                // Convert to score
+                __result = __instance.TotalEstimatedHitChance / __instance.AimOnTargetChance;
+
+                return false;
+            }
+
+        }
 
         [HarmonyPatch(typeof(ShotReport), nameof(ShotReport.HitReportFor))]
         public static class HitReportFor
@@ -148,7 +160,7 @@ namespace VCORanged
             public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
             {
                 #if DEBUG
-                    Log.Message("Transpiler start: ShotReport.HitReportFor (6 matches)");
+                    Log.Message("Transpiler start: ShotReport.HitReportFor (7 matches)");
                 #endif
 
                 var instructionList = instructions.ToList();
@@ -352,13 +364,14 @@ namespace VCORanged
                     var coverList = (List<CoverInfo>)NonPublicFields.ShotReport_covers.GetValue(__instance);
                     if (__instance.PassCoverChance < 1f)
                     {
-                        reportBuilder.AppendLine("   " + "ShootingCover".Translate() + "        " + __instance.PassCoverChance.ToStringByStyle(ToStringStyle.FloatOne, ToStringNumberSense.Offset));
+                        float coversOverallBlockChance = (float)NonPublicFields.ShotReport_coversOverallBlockChance.GetValue(__instance);
+                        reportBuilder.AppendLine("   " + "ShootingCover".Translate() + "        " + coversOverallBlockChance.ToStringByStyle(ToStringStyle.FloatOne, ToStringNumberSense.Offset));
                         for (int i = 0; i < coverList.Count; i++)
                         {
                             CoverInfo coverInfo = coverList[i];
-                            if (coverInfo.BlockChance > 0f)
+                            if (coverInfo.BlockChance < 0)
                             {
-                                reportBuilder.AppendLine("     " + "CoverThingBlocksPercentOfShots".Translate(coverInfo.Thing.LabelCap, coverInfo.BlockChance.ToStringByStyle(ToStringStyle.FloatOne, ToStringNumberSense.Offset), new NamedArgument(coverInfo.Thing.def, "COVER")).CapitalizeFirst());
+                                reportBuilder.AppendLine("     " + "CoverThingBlocksPercentOfShots".Translate(coverInfo.Thing.LabelCap, Mathf.Abs(coverInfo.BlockChance).ToStringByStyle(ToStringStyle.FloatOne, ToStringNumberSense.Absolute), new NamedArgument(coverInfo.Thing.def, "COVER")).CapitalizeFirst());
                             }
                         }
                     }
