@@ -39,7 +39,7 @@ namespace VCORanged
                     if (instruction.opcode == OpCodes.Ldloc_0)
                     {
                         #if DEBUG
-                            Log.Message("JobDriver_ManTurret.FindAmmoForTurret match 1 of 2");
+                            Log.Message("VerbProperties.GetHitChanceFactor match 1 of 2");
                         #endif
                         
                         // Check if this is the last loading of that variable (other than the one that precedes ret)
@@ -59,7 +59,7 @@ namespace VCORanged
                         if (lastInstruction)
                         {
                             #if DEBUG
-                                Log.Message("JobDriver_ManTurret.FindAmmoForTurret match 2 of 2");
+                                Log.Message("VerbProperties.GetHitChanceFactor match 2 of 2");
                             #endif
                             
                             j = i + 1;

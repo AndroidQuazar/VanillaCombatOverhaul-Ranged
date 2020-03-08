@@ -16,10 +16,17 @@ namespace VCORanged
     public class VCORangedSettings : ModSettings
     {
 
+        private static Vector2 menuScrollPos;
+        private static float menuViewHeight;
+
         public static string shotgunThingDefNames = string.Empty;
 
         [Unsaved]
         public static List<ThingDef> shotgunThingDefs = new List<ThingDef>();
+
+        [Unsaved]
+        public static List<ThingDef> nonShotgunThingDefs = new List<ThingDef>();
+
 
         public void DoWindowContents(Rect wrect)
         {
@@ -32,12 +39,19 @@ namespace VCORanged
             Text.Anchor = TextAnchor.UpperLeft;
             options.Gap();
 
+            // Do shotgun selection
+            options.Label("");
 
+            DoShotgunSelectionWindows(wrect.width, ref menuScrollPos, ref menuViewHeight);
 
             options.End();
 
             VCORanged.settings.Write();
 
+        }
+
+        private void DoShotgunSelectionWindows(float rectWidth, ref Vector2 scrollPos, ref float viewHeight)
+        {
         }
 
         public override void ExposeData()
@@ -69,6 +83,11 @@ namespace VCORanged
             }
         }
 
+
+        private const float RowHeight = 18;
+        private const float RowVerticalMargin = 12;
+        private const float DefBoxWidth = 320;
+        private const float DefIconSize = 64;
         private const char Delimiter = ';';
 
 

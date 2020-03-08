@@ -32,7 +32,7 @@ namespace VCORanged
                 // Increase projectile speed across the board
                 if (curDef.projectile is ProjectileProperties projProps)
                 {
-                    projProps.speed *= 1 + (projProps.speed / 100);
+                    projProps.speed *= 1 + (projProps.speed / 200);
                 }
             }
         }

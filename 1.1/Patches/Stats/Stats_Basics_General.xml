@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+    <!-- Convert turret accuracy from percentage to points -->
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/StatDef[defName="ShootingAccuracyTurret"]</xpath>
+        <value>
+            <postProcessCurve>
+                <points>
+                    <li>(0.00, -90)</li>
+                    <li>(0.10, -80)</li>
+                    <li>(0.20, -70)</li>
+                    <li>(0.30, -60)</li>
+                    <li>(0.40, -50)</li>
+                    <li>(0.50, -40)</li>
+                    <li>(0.60, -30)</li>
+
+                    <!-- Inverse vanilla ShootingAccuracyPawn curve -->
+                    <li>(0.70, -20)</li>
+                    <li>(0.80, -10)</li>
+                    <li>(0.83, -6)</li>
+                    <li>(0.85, -4)</li>
+                    <li>(0.87, -2)</li>
+                    <li>(0.89, 0)</li>
+                    <li>(0.93, 2)</li>
+                    <li>(0.94, 4)</li>
+                    <li>(0.95, 6)</li>
+                    <li>(0.96, 8)</li>
+                    <li>(0.97, 10)</li>
+                    <li>(0.975, 12)</li>
+                    <li>(0.98, 14)</li>
+                    <li>(0.98333, 16)</li>
+                    <li>(0.98666, 18)</li>
+                    <li>(0.99, 20)</li>
+                    <li>(0.9925, 22)</li>
+                    <li>(0.995, 26)</li>
+                    <li>(0.9965, 30)</li>
+                    <li>(0.998, 40)</li>
+                    <li>(0.999, 60)</li>
+
+                </points>
+            </postProcessCurve>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationReplace">
+        <xpath>/Defs/StatDef[defName="ShootingAccuracyTurret"]/toStringStyle</xpath>
+        <value>
+            <toStringStyle>FloatOne</toStringStyle>
+        </value>
+    </Operation>
+
+</Patch>
