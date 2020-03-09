@@ -74,9 +74,7 @@ namespace VCORanged
                             yield return instruction; // num
                             yield return new CodeInstruction(OpCodes.Ldloca_S, coverInfoLocalIndex); // coverInfo
                             yield return new CodeInstruction(OpCodes.Call, getBlockChanceInfo); // coverInfo.BlockChance
-                            yield return new CodeInstruction(OpCodes.Ldc_R4, VCORangedTuning.AccuracyScoreCover); // VCORangedTuning.AccuracyScoreCover
-                            yield return new CodeInstruction(OpCodes.Mul); // coverInfo.BlockChance * VCORangedTuning.AccuracyScoreCover
-                            instruction = new CodeInstruction(OpCodes.Add); // num + coverInfo.BlockChance * VCORangedTuning.AccuracyScoreCover
+                            instruction = new CodeInstruction(OpCodes.Add); // num + coverInfo.BlockChance
                             done = true;
                         }
                     }

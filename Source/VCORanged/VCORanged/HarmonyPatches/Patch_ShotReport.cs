@@ -143,6 +143,7 @@ namespace VCORanged
         public static class get_PassCoverChance
         {
 
+            [HarmonyPriority(Priority.Last)]
             public static bool Prefix(ShotReport __instance, ref float __result)
             {
                 // Convert to score

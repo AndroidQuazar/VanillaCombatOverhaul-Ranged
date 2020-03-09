@@ -25,6 +25,24 @@ namespace VCORanged
         public static PropertyInfo ShotReport_get_FactorFromCoveringGas = AccessTools.Property(typeof(ShotReport), "FactorFromCoveringGas");
         #endregion
 
+        [StaticConstructorOnStartup]
+        public static class VanillaFurnitureExpandedSecurity
+        {
+
+            static VanillaFurnitureExpandedSecurity()
+            {
+                if (ModCompatibilityCheck.VanillaFurnitureExpandedSecurity)
+                {
+                    CompThingTracker_get_Illuminated = AccessTools.Property(NonPublicTypes.VanillaFurnitureExpandedSecurity.CompThingTracker, "Illuminated");
+                }
+            }
+
+            #region CompThingTracker
+            public static PropertyInfo CompThingTracker_get_Illuminated;
+            #endregion
+
+        }
+
     }
 
 }

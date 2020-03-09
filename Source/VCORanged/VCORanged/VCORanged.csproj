@@ -71,12 +71,14 @@
     <Compile Include="HarmonyPatches\Patch_ShotReport.cs" />
     <Compile Include="HarmonyPatches\Patch_VerbProperties.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches.cs" />
+    <Compile Include="Reflection\NonPublicTypes.cs" />
     <Compile Include="Reflection\NonPublicMethods.cs" />
     <Compile Include="Reflection\NonPublicProperties.cs" />
     <Compile Include="Reflection\NonPublicFields.cs" />
     <Compile Include="StartupPatches.cs" />
     <Compile Include="VCORangedSettingsUtility.cs" />
     <Compile Include="VCORangedTuning.cs" />
+    <Compile Include="ModCompatibilityCheck.cs" />
     <Compile Include="VCORangedUtility.cs" />
     <Compile Include="VCORangedSettings.cs" />
     <Compile Include="VCORanged.cs" />

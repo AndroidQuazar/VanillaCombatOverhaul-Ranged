@@ -52,6 +52,15 @@ namespace VCORanged
         public static float OffsetFromGlow(this ShotReport report)
         {
             var reportTarget = (TargetInfo)NonPublicFields.ShotReport_target.GetValue(report);
+
+            // VFE Security - return 0 if target is illuminated by a searchlight
+            if (ModCompatibilityCheck.VanillaFurnitureExpandedSecurity && reportTarget.Thing is ThingWithComps thingWComps)
+            {
+                var thingTracker = thingWComps.AllComps.FirstOrDefault(c => c.GetType() == NonPublicTypes.VanillaFurnitureExpandedSecurity.CompThingTracker);
+                if (thingTracker != null && (bool)NonPublicProperties.VanillaFurnitureExpandedSecurity.CompThingTracker_get_Illuminated.GetValue(thingTracker))
+                    return 0;
+            }
+
             return GlowToAccuracyScoreCurve.Evaluate(reportTarget.Map.glowGrid.GameGlowAt(reportTarget.Cell));
         }
 
