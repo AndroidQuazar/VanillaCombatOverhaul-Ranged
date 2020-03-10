@@ -47,7 +47,8 @@ namespace VCORanged
 
                 int coverInfoLocalIndex = method.GetMethodBody().LocalVariables.First(l => l.LocalType == typeof(CoverInfo)).LocalIndex;
 
-                var getBlockChanceInfo = AccessTools.Property(typeof(CoverInfo), nameof(CoverInfo.BlockChance)).GetGetMethod();
+                var coverBlockChanceInfo = AccessTools.Method(typeof(CalculateOverallBlockChance), nameof(CalculateOverallBlockChance.CoverBlockChance));
+                //var getBlockChanceInfo = AccessTools.Property(typeof(CoverInfo), nameof(CoverInfo.BlockChance)).GetGetMethod();
 
                 for (int i = 0; i < instructionList.Count; i++)
                 {
@@ -87,14 +88,22 @@ namespace VCORanged
                                 instructionList.RemoveAt(i + 1);
 
                             yield return instruction; // num
-                            yield return new CodeInstruction(OpCodes.Ldloca_S, coverInfoLocalIndex); // coverInfo
-                            yield return new CodeInstruction(OpCodes.Call, getBlockChanceInfo); // coverInfo.BlockChance
-                            instruction = new CodeInstruction(OpCodes.Add); // num + coverInfo.BlockChance * VCORangedTuning.AccuracyScoreCover
+                            yield return new CodeInstruction(OpCodes.Ldloc_S, coverInfoLocalIndex); // coverInfo
+                            yield return new CodeInstruction(OpCodes.Call, coverBlockChanceInfo); // CoverBlockChance(coverInfo)
+                            instruction = new CodeInstruction(OpCodes.Add); // num + CoverBlockChance(coverInfo)
                         }
                     }
 
                     yield return instruction;
                 }
+            }
+
+            private static float CoverBlockChance(CoverInfo coverInfo)
+            {
+                // Some weird hack to get coverInfo.BlockChance to return properly
+                float blockChance = coverInfo.BlockChance;
+                blockChance += 0; // this part specifically
+                return blockChance;
             }
 
         }
