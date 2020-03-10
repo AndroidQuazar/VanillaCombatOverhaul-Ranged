@@ -20,7 +20,24 @@ namespace VCORanged
         public static class CalculateOverallBlockChance
         {
 
-            public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, MethodBase method)
+            public static bool Prefix(LocalTargetInfo target, IntVec3 shooterLoc, Map map, ref float __result)
+            {
+                IntVec3 cell = target.Cell;
+                float num = 0f;
+                for (int i = 0; i < 8; i++)
+                {
+                    IntVec3 intVec = cell + GenAdj.AdjacentCells[i];
+                    CoverInfo coverInfo;
+                    if (intVec.InBounds(map) && NonPublicMethods.CoverUtility_TryFindAdjustedCoverInCell(shooterLoc, target, intVec, map, out coverInfo))
+                    {
+                        num += coverInfo.BlockChance;
+                    }
+                }
+                __result = num;
+                return false;
+            }
+
+            public static IEnumerable<CodeInstruction> _Transpiler(IEnumerable<CodeInstruction> instructions, MethodBase method)
             {
                 #if DEBUG
                     Log.Message("Transpiler start: CoverUtility.CalculateOverallBlockChance (2 matches)");
@@ -32,14 +49,12 @@ namespace VCORanged
 
                 var getBlockChanceInfo = AccessTools.Property(typeof(CoverInfo), nameof(CoverInfo.BlockChance)).GetGetMethod();
 
-                bool done = false;
-
                 for (int i = 0; i < instructionList.Count; i++)
                 {
                     var instruction = instructionList[i];
 
                     // Look for the section that adds to BlockChance
-                    if (!done && instruction.opcode == OpCodes.Ldloc_1)
+                    if (instruction.opcode == OpCodes.Ldloc_1)
                     {
                         #if DEBUG
                             Log.Message("CoverUtility.CalculateOverallBlockChance match 1 of 2");
@@ -74,8 +89,9 @@ namespace VCORanged
                             yield return instruction; // num
                             yield return new CodeInstruction(OpCodes.Ldloca_S, coverInfoLocalIndex); // coverInfo
                             yield return new CodeInstruction(OpCodes.Call, getBlockChanceInfo); // coverInfo.BlockChance
-                            instruction = new CodeInstruction(OpCodes.Add); // num + coverInfo.BlockChance
-                            done = true;
+                            //yield return new CodeInstruction(OpCodes.Ldc_R4, VCORangedTuning.AccuracyScoreCover); // VCORangedTuning.AccuracyScoreCover
+                            //yield return new CodeInstruction(OpCodes.Mul); // coverInfo.BlockChance * VCORangedTuning.AccuracyScoreCover
+                            instruction = new CodeInstruction(OpCodes.Add); // num + coverInfo.BlockChance * VCORangedTuning.AccuracyScoreCover
                         }
                     }
 
