@@ -20,7 +20,7 @@ namespace VCORanged
         public static class CalculateOverallBlockChance
         {
 
-            public static bool Prefix(LocalTargetInfo target, IntVec3 shooterLoc, Map map, ref float __result)
+            public static bool _Prefix(LocalTargetInfo target, IntVec3 shooterLoc, Map map, ref float __result)
             {
                 IntVec3 cell = target.Cell;
                 float num = 0f;
@@ -37,7 +37,7 @@ namespace VCORanged
                 return false;
             }
 
-            public static IEnumerable<CodeInstruction> _Transpiler(IEnumerable<CodeInstruction> instructions, MethodBase method)
+            public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, MethodBase method)
             {
                 #if DEBUG
                     Log.Message("Transpiler start: CoverUtility.CalculateOverallBlockChance (2 matches)");
@@ -84,13 +84,11 @@ namespace VCORanged
 
                             // Nop out block otherwise problems arise
                             for (int k = 1; k < j; k++)
-                                instructionList[i + k].opcode = OpCodes.Nop;
+                                instructionList.RemoveAt(i + 1);
 
                             yield return instruction; // num
                             yield return new CodeInstruction(OpCodes.Ldloca_S, coverInfoLocalIndex); // coverInfo
                             yield return new CodeInstruction(OpCodes.Call, getBlockChanceInfo); // coverInfo.BlockChance
-                            //yield return new CodeInstruction(OpCodes.Ldc_R4, VCORangedTuning.AccuracyScoreCover); // VCORangedTuning.AccuracyScoreCover
-                            //yield return new CodeInstruction(OpCodes.Mul); // coverInfo.BlockChance * VCORangedTuning.AccuracyScoreCover
                             instruction = new CodeInstruction(OpCodes.Add); // num + coverInfo.BlockChance * VCORangedTuning.AccuracyScoreCover
                         }
                     }
