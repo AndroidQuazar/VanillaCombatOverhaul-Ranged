@@ -22,8 +22,13 @@ namespace VCORanged
             if (target.HasThing)
             {
                 // Pawn - base on body size as usual
-                if (target.Thing is Pawn pawn)
-                    return (pawn.BodySize - 1) * VCORangedTuning.AccuracyScorePerTargetSize;
+                if (target.Thing is Pawn pawn) 
+                {
+                    float bodySizeDeviation = pawn.BodySize - 1;
+                    if (bodySizeDeviation < 0)
+                        return 1 / bodySizeDeviation * VCORangedTuning.AccuracyScorePerTargetSize;
+                    return bodySizeDeviation * VCORangedTuning.AccuracyScorePerTargetSize;
+                }
 
                 // Not a pawn
                 else
@@ -45,9 +50,22 @@ namespace VCORanged
             return 0;
         }
 
-        public static float OffsetFromWeather(float originalFactor) => (1 - originalFactor) * VCORangedTuning.AccuracyScoreWeather;
+        public static float OffsetFromWeather(float originalFactor, float distance)
+        {
+            return Mathf.Lerp(0, (1 - originalFactor) * VCORangedTuning.AccuracyScoreWeather, distance / ShootTuning.DistShort);
+        }
 
-        public static float OffsetFromDistance(this ShotReport report) => DistanceToAccuracyScoreCurve.Evaluate((float)NonPublicFields.ShotReport_distance.GetValue(report));
+        public static float OffsetFromDistance(this ShotReport report)
+        {
+            float adjustedDistance = Mathf.Max((float)NonPublicFields.ShotReport_distance.GetValue(report) - 1, 0);
+
+            // Close up - accuracy bonus
+            if (adjustedDistance < VCORangedTuning.MaxDistForAccuracyBonus)
+                return (VCORangedTuning.MaxDistForAccuracyBonus - adjustedDistance) * VCORangedTuning.AccuracyScoreCloseRange;
+
+            // Normal
+            return (adjustedDistance - VCORangedTuning.MaxDistForAccuracyBonus) * VCORangedTuning.AccuracyScorePerDistance;
+        }
 
         public static float OffsetFromGlow(this ShotReport report)
         {
@@ -61,7 +79,12 @@ namespace VCORanged
                     return 0;
             }
 
-            return GlowToAccuracyScoreCurve.Evaluate(reportTarget.Map.glowGrid.GameGlowAt(reportTarget.Cell));
+            // Low light level
+            float cellLight = reportTarget.Map.glowGrid.GameGlowAt(reportTarget.Cell);
+            if (cellLight < 0.3f)
+                return (1 - cellLight / 0.3f) * VCORangedTuning.AccuracyScoreDarkness;
+
+            return 0;
         }
 
         public static float AimOnTargetScore_StandardTarget(this ShotReport report)
@@ -100,23 +123,10 @@ namespace VCORanged
             new CurvePoint(-30, 0.04f),
             new CurvePoint(-20, 0.10f),
             new CurvePoint(-10, 0.25f),
-            new CurvePoint(0, 0.7f),
-            new CurvePoint(10, 0.9f),
+            new CurvePoint(0, 0.70f),
+            new CurvePoint(10, 0.90f),
             new CurvePoint(20, 0.99f),
             new CurvePoint(40, 1.00f),
-        };
-
-        public static readonly SimpleCurve DistanceToAccuracyScoreCurve = new SimpleCurve()
-        {
-            new CurvePoint(1, VCORangedTuning.AccuracyScoreCloseRange),
-            new CurvePoint(ShootTuning.DistTouch, 0),
-            new CurvePoint(10000 + ShootTuning.DistTouch, 10000 * VCORangedTuning.AccuracyScorePerDistance)
-        };
-
-        public static readonly SimpleCurve GlowToAccuracyScoreCurve = new SimpleCurve()
-        {
-            new CurvePoint(0, VCORangedTuning.AccuracyScoreDarkness),
-            new CurvePoint(0.3f, 0)
         };
 
     }

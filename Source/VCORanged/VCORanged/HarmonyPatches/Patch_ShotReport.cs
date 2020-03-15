@@ -272,8 +272,10 @@ namespace VCORanged
                             yield return new CodeInstruction(OpCodes.Ldloca_S, 0); // shotReport
                             yield return new CodeInstruction(OpCodes.Ldloc_0); // shotReport
                             yield return new CodeInstruction(OpCodes.Ldfld, NonPublicFields.ShotReport_factorFromWeather); // shotReport.factorFromWeather
-                            yield return new CodeInstruction(OpCodes.Call, offsetFromWeatherInfo); // VCOUtility.OffsetFromTargetSize(shotReport.factorFromWeather)
-                            yield return new CodeInstruction(OpCodes.Stfld, NonPublicFields.ShotReport_factorFromWeather); // shotReport.factorFromWeather = VCOUtility.OffsetFromWeathe(shotReport.factorFromWeather)
+                            yield return new CodeInstruction(OpCodes.Ldloc_0); // shotReport
+                            yield return new CodeInstruction(OpCodes.Ldfld, NonPublicFields.ShotReport_distance); // shotReport.distance
+                            yield return new CodeInstruction(OpCodes.Call, offsetFromWeatherInfo); // VCOUtility.OffsetFromTargetSize(shotReport.factorFromWeather, shotReport.distance)
+                            yield return new CodeInstruction(OpCodes.Stfld, NonPublicFields.ShotReport_factorFromWeather); // shotReport.factorFromWeather = VCOUtility.OffsetFromWeather(shotReport.factorFromWeather, shotReport.distance)
                         }
                     }
 

@@ -25,6 +25,11 @@ namespace VCORanged
             Delegate.CreateDelegate(typeof(TryFindAdjustedCoverInCell<IntVec3, LocalTargetInfo, IntVec3, Map, CoverInfo>), AccessTools.Method(typeof(CoverUtility), "TryFindAdjustedCoverInCell"));
         #endregion
 
+        #region Verb_LaunchProjectile
+        public static Func<Verb_LaunchProjectile, bool> Verb_LaunchProjectile_TryCastShot = (Func<Verb_LaunchProjectile, bool>)
+            Delegate.CreateDelegate(typeof(Func<Verb_LaunchProjectile, bool>), null, AccessTools.Method(typeof(Verb_LaunchProjectile), "TryCastShot"));
+        #endregion
+
         public delegate bool TryFindAdjustedCoverInCell<A, B, C, D, E>(A first, B second, C third, D fourth, out E fifth);
 
     }

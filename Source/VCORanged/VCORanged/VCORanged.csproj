@@ -65,10 +65,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefModExtensions\VCORanged.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatchUtility.cs" />
     <Compile Include="HarmonyPatches\Patch_CoverUtility.cs" />
     <Compile Include="HarmonyPatches\Patch_CoverInfo.cs" />
     <Compile Include="HarmonyPatches\Patch_ShotReport.cs" />
+    <Compile Include="HarmonyPatches\Verb_LaunchProjectile.cs" />
     <Compile Include="HarmonyPatches\Patch_VerbProperties.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches.cs" />
     <Compile Include="Reflection\NonPublicTypes.cs" />
@@ -84,8 +86,6 @@
     <Compile Include="VCORanged.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DefModExtensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

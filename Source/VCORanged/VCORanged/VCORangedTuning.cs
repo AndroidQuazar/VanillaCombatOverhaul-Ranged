@@ -26,6 +26,8 @@ namespace VCORanged
         public const float AccuracyScorePerTargetSize = 6;
         public const float AccuracyScoreExecution = 40;
 
+        public const float MaxDistForAccuracyBonus = 6;
+
     }
 
 }
