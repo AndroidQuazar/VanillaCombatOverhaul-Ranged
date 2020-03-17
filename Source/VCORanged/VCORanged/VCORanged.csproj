@@ -65,8 +65,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DefModExtensions\VCORanged.cs" />
+    <Compile Include="DefModExtensions\ExtendedProjectileProperties.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatchUtility.cs" />
+    <Compile Include="HarmonyPatches\Patch_Projectile.cs" />
     <Compile Include="HarmonyPatches\Patch_CoverUtility.cs" />
     <Compile Include="HarmonyPatches\Patch_CoverInfo.cs" />
     <Compile Include="HarmonyPatches\Patch_ShotReport.cs" />

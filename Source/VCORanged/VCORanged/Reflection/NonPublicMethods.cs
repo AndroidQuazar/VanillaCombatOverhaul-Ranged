@@ -26,8 +26,11 @@ namespace VCORanged
         #endregion
 
         #region Verb_LaunchProjectile
-        public static Func<Verb_LaunchProjectile, bool> Verb_LaunchProjectile_TryCastShot = (Func<Verb_LaunchProjectile, bool>)
-            Delegate.CreateDelegate(typeof(Func<Verb_LaunchProjectile, bool>), null, AccessTools.Method(typeof(Verb_LaunchProjectile), "TryCastShot"));
+        public static Action<Verb_LaunchProjectile, string> Verb_LaunchProjectile_ThrowDebugText_a = (Action<Verb_LaunchProjectile, string>)
+            Delegate.CreateDelegate(typeof(Action<Verb_LaunchProjectile, string>), null, AccessTools.Method(typeof(Verb_LaunchProjectile), "ThrowDebugText", new Type[] { typeof(string) }));
+
+        public static Action<Verb_LaunchProjectile, string, IntVec3> Verb_LaunchProjectile_ThrowDebugText_b = (Action<Verb_LaunchProjectile, string, IntVec3>)
+            Delegate.CreateDelegate(typeof(Action<Verb_LaunchProjectile, string, IntVec3>), null, AccessTools.Method(typeof(Verb_LaunchProjectile), "ThrowDebugText", new Type[] { typeof(string), typeof(IntVec3) }));
         #endregion
 
         public delegate bool TryFindAdjustedCoverInCell<A, B, C, D, E>(A first, B second, C third, D fourth, out E fifth);

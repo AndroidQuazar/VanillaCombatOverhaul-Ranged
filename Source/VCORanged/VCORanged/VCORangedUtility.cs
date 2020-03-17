@@ -112,9 +112,9 @@ namespace VCORanged
         }
 
 
-        public static bool IsShotgun(this Thing thing) => thing.def.IsShotgun();
+        public static bool IsShotgun(this Thing thing) => thing != null && thing.def.IsShotgun();
 
-        public static bool IsShotgun(this ThingDef def) => VCORangedSettings.shotgunThingDefs.Contains(def);
+        public static bool IsShotgun(this ThingDef def) => def != null && def.defName.Contains("Shotgun"); // VCORangedSettings.shotgunThingDefs.Contains(def);
 
         public static readonly SimpleCurve AccuracyScoreToPercentageCurve = new SimpleCurve()
         {

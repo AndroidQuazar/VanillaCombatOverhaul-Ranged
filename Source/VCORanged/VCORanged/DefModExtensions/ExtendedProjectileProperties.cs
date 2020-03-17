@@ -37,6 +37,8 @@ namespace VCORanged
             return base.ConfigErrors();
         }
 
+        public Graphic PelletGraphic => shotgunPelletGraphicData.Graphic;
+
         public int shotgunPelletCount = 6;
         public GraphicData shotgunPelletGraphicData;
 
