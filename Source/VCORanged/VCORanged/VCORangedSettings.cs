@@ -19,6 +19,7 @@ namespace VCORanged
         private static Vector2 menuScrollPos;
         private static float menuViewHeight;
 
+        public static ShotgunDamageRoundMode shotgunDamageRounding = ShotgunDamageRoundMode.Random;
         public static string shotgunThingDefNames = string.Empty;
 
         [Unsaved]
@@ -39,10 +40,16 @@ namespace VCORanged
             Text.Anchor = TextAnchor.UpperLeft;
             options.Gap();
 
-            // Do shotgun selection
-            options.Label("");
-
-            DoShotgunSelectionWindows(wrect.width, ref menuScrollPos, ref menuViewHeight);
+            // Shotgun damage rounding mode
+            options.Label("VCO.RangedModule.ShotgunDamageRounding".Translate());
+            var shotgunDamageRoundingOpts = Enum.GetValues(typeof(ShotgunDamageRoundMode)).Cast<ShotgunDamageRoundMode>().ToList();
+            for (int i = 0; i < shotgunDamageRoundingOpts.Count; i++)
+            {
+                var curOpt = shotgunDamageRoundingOpts[i];
+                if (options.RadioButton($"VCO.RangedModule.ShotgunDamageRounding_{curOpt}".Translate(), shotgunDamageRounding == curOpt, 12,
+                    $"VCO.RangedModule.ShotgunDamageRounding_{curOpt}_Desc".Translate()))
+                    shotgunDamageRounding = curOpt;
+            }
 
             options.End();
 
@@ -50,7 +57,7 @@ namespace VCORanged
 
         }
 
-        private void DoShotgunSelectionWindows(float rectWidth, ref Vector2 scrollPos, ref float viewHeight)
+        private void DoShotgunSelectionWindows(Listing_Standard listing, ref Vector2 scrollPos, ref float viewHeight)
         {
         }
 
@@ -59,28 +66,29 @@ namespace VCORanged
             base.ExposeData();
             var scribeMode = Scribe.mode;
 
-            if (scribeMode == LoadSaveMode.Saving)
-            {
-                // Convert list of defs into a single semicolon-separated set of defNames
-                string defNameListString = String.Empty;
-                for (int i = 0; i < shotgunThingDefs.Count; i++)
-                {
-                    defNameListString += shotgunThingDefs[i].defName;
-                    if (i < shotgunThingDefs.Count - 1)
-                        defNameListString += Delimiter;
-                }
-                shotgunThingDefNames = defNameListString;
-            }
+            //if (scribeMode == LoadSaveMode.Saving)
+            //{
+            //    // Convert list of defs into a single semicolon-separated set of defNames
+            //    string defNameListString = String.Empty;
+            //    for (int i = 0; i < shotgunThingDefs.Count; i++)
+            //    {
+            //        defNameListString += shotgunThingDefs[i].defName;
+            //        if (i < shotgunThingDefs.Count - 1)
+            //            defNameListString += Delimiter;
+            //    }
+            //    shotgunThingDefNames = defNameListString;
+            //}
 
+            Scribe_Values.Look(ref shotgunDamageRounding, "shotgunDamageRounding", ShotgunDamageRoundMode.Random);
             Scribe_Values.Look(ref shotgunThingDefNames, "shotgunThingDefNames", String.Empty);
 
-            if (scribeMode == LoadSaveMode.PostLoadInit)
-            {
-                // Convert semicolon-separated list back to a list of defs
-                var defNameList = shotgunThingDefNames.Split(Delimiter);
-                for (int i = 0; i < defNameList.Length; i++)
-                    shotgunThingDefs.Add(DefDatabase<ThingDef>.GetNamedSilentFail(defNameList[i]));
-            }
+            //if (scribeMode == LoadSaveMode.PostLoadInit)
+            //{
+            //    // Convert semicolon-separated list back to a list of defs
+            //    var defNameList = shotgunThingDefNames.Split(Delimiter);
+            //    for (int i = 0; i < defNameList.Length; i++)
+            //        shotgunThingDefs.Add(DefDatabase<ThingDef>.GetNamedSilentFail(defNameList[i]));
+            //}
         }
 
 

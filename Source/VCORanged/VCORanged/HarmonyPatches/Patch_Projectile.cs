@@ -25,7 +25,22 @@ namespace VCORanged
                 // Shotgun pellet
                 if (__instance.EquipmentDef.IsShotgun())
                 {
-                    __result = GenMath.RoundRandom((float)__result / ExtendedProjectileProperties.Get(__instance.def).shotgunPelletCount);
+                    switch(VCORangedSettings.shotgunDamageRounding)
+                    {
+                        case ShotgunDamageRoundMode.Random:
+                            __result = GenMath.RoundRandom((float)__result / ExtendedProjectileProperties.Get(__instance.def).shotgunPelletCount);
+                            return;
+                        case ShotgunDamageRoundMode.Standard:
+                            __result = Mathf.RoundToInt((float)__result / ExtendedProjectileProperties.Get(__instance.def).shotgunPelletCount);
+                            return;
+                        case ShotgunDamageRoundMode.Floor:
+                            __result = Mathf.FloorToInt((float)__result / ExtendedProjectileProperties.Get(__instance.def).shotgunPelletCount);
+                            return;
+                        default:
+                            __result = Mathf.CeilToInt((float)__result / ExtendedProjectileProperties.Get(__instance.def).shotgunPelletCount);
+                            return;
+
+                    }
                 }
             }
         
