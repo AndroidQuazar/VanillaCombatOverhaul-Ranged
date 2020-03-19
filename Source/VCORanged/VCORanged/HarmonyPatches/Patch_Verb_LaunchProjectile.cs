@@ -84,6 +84,7 @@ namespace VCORanged
 								}
 								projectile2.Launch(launcher, drawPos, c, ___currentTarget, projectileHitFlags, equipment, null);
 								__result = true;
+								continue;
 							}
 						}
 					}
@@ -102,6 +103,7 @@ namespace VCORanged
 						}
 						projectile2.Launch(launcher, drawPos, shootLine.Dest, ___currentTarget, projectileHitFlags2, equipment, targetCoverDef);
 						__result = true;
+						continue;
 					}
 					if (___currentTarget.Thing != null && ___currentTarget.Thing.def.category == ThingCategory.Pawn && !Rand.Chance(shotReport.PassCoverChance))
 					{
@@ -114,6 +116,7 @@ namespace VCORanged
 						}
 						projectile2.Launch(launcher, drawPos, randomCoverToMissInto, ___currentTarget, projectileHitFlags3, equipment, targetCoverDef);
 						__result = true;
+						continue;
 					}
 					ProjectileHitFlags projectileHitFlags4 = ProjectileHitFlags.IntendedTarget;
 					if (___canHitNonTargetPawnsNow)

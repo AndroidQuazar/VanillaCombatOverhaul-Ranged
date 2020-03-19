@@ -72,7 +72,7 @@
     <Compile Include="HarmonyPatches\Patch_CoverUtility.cs" />
     <Compile Include="HarmonyPatches\Patch_CoverInfo.cs" />
     <Compile Include="HarmonyPatches\Patch_ShotReport.cs" />
-    <Compile Include="HarmonyPatches\Verb_LaunchProjectile.cs" />
+    <Compile Include="HarmonyPatches\Patch_Verb_LaunchProjectile.cs" />
     <Compile Include="HarmonyPatches\Patch_VerbProperties.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches.cs" />
     <Compile Include="Reflection\NonPublicTypes.cs" />

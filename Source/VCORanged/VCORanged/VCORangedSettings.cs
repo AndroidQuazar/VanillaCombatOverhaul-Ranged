@@ -13,12 +13,14 @@ using HarmonyLib;
 namespace VCORanged
 {
 
+    [StaticConstructorOnStartup]
     public class VCORangedSettings : ModSettings
     {
 
         private static Vector2 menuScrollPos;
         private static float menuViewHeight;
 
+        public static bool shotgunRevamp = true;
         public static ShotgunDamageRoundMode shotgunDamageRounding = ShotgunDamageRoundMode.Random;
         public static string shotgunThingDefNames = string.Empty;
 
@@ -40,6 +42,14 @@ namespace VCORanged
             Text.Anchor = TextAnchor.UpperLeft;
             options.Gap();
 
+            #region Shotguns
+            // Shotgun revamp toggle
+            options.CheckboxLabeled("VCO.RangedModule.ShotgunRevamp".Translate(), ref shotgunRevamp, "VCO.RangedModule.ShotgunRevamp_Desc".Translate());
+            options.Gap();
+
+            if (!shotgunRevamp)
+                GUI.color = Color.grey;
+
             // Shotgun damage rounding mode
             options.Label("VCO.RangedModule.ShotgunDamageRounding".Translate());
             var shotgunDamageRoundingOpts = Enum.GetValues(typeof(ShotgunDamageRoundMode)).Cast<ShotgunDamageRoundMode>().ToList();
@@ -47,9 +57,12 @@ namespace VCORanged
             {
                 var curOpt = shotgunDamageRoundingOpts[i];
                 if (options.RadioButton($"VCO.RangedModule.ShotgunDamageRounding_{curOpt}".Translate(), shotgunDamageRounding == curOpt, 12,
-                    $"VCO.RangedModule.ShotgunDamageRounding_{curOpt}_Desc".Translate()))
+                    $"VCO.RangedModule.ShotgunDamageRounding_{curOpt}_Desc".Translate()) && shotgunRevamp)
                     shotgunDamageRounding = curOpt;
             }
+
+            GUI.color = defaultColor;
+            #endregion
 
             options.End();
 
@@ -79,6 +92,7 @@ namespace VCORanged
             //    shotgunThingDefNames = defNameListString;
             //}
 
+            Scribe_Values.Look(ref shotgunRevamp, "shotgunRevamp", true);
             Scribe_Values.Look(ref shotgunDamageRounding, "shotgunDamageRounding", ShotgunDamageRoundMode.Random);
             Scribe_Values.Look(ref shotgunThingDefNames, "shotgunThingDefNames", String.Empty);
 
