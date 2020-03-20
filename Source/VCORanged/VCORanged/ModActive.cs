@@ -14,10 +14,10 @@ namespace VCORanged
 {
 
     [StaticConstructorOnStartup]
-    public static class ModCompatibilityCheck
+    public static class ModActive
     {
 
-        static ModCompatibilityCheck()
+        static ModActive()
         {
             var allMods = ModsConfig.ActiveModsInLoadOrder.ToList();
             for (int i = 0; i < allMods.Count; i++)

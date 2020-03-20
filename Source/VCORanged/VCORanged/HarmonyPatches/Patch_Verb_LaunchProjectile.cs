@@ -91,7 +91,8 @@ namespace VCORanged
 					ShotReport shotReport = ShotReport.HitReportFor(__instance.caster, __instance, ___currentTarget);
 					Thing randomCoverToMissInto = shotReport.GetRandomCoverToMissInto();
 					ThingDef targetCoverDef = (randomCoverToMissInto != null) ? randomCoverToMissInto.def : null;
-					if (!Rand.Chance(shotReport.AimOnTargetChance_IgnoringPosture))
+					//if (!Rand.Chance(shotReport.AimOnTargetChance_IgnoringPosture))
+					if (!Rand.Chance(shotReport.AimOnTargetChance))
 					{
 						shootLine.ChangeDestToMissWild(shotReport.AimOnTargetChance_StandardTarget);
 						NonPublicMethods.Verb_LaunchProjectile_ThrowDebugText_a(__instance, "ToWild" + (___canHitNonTargetPawnsNow ? "\nchntp" : ""));

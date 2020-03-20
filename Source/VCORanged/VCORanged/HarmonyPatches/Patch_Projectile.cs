@@ -91,6 +91,52 @@ namespace VCORanged
 
         }
 
+        [HarmonyPatch(typeof(Projectile), "ImpactSomething")]
+        public static class ImpactSomething
+        {
+
+            public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+            {
+                #if DEBUG
+                    Log.Message("Transpiler start: Projectile.ImpactSomething (1 match)");
+                #endif
+
+                var instructionList = instructions.ToList();
+
+                var chanceInfo = AccessTools.Method(typeof(Rand), nameof(Rand.Chance));
+
+                for (int i = 0; i < instructionList.Count; i++)
+                {
+                    var instruction = instructionList[i];
+
+                    // Remove 20% chance of hitting if pawn is downed
+                    if (instruction.opcode == OpCodes.Ldc_R4 && instruction.OperandIs(ShootTuning.HitChanceFactorIfLayingDown))
+                    {
+                        var nextInstruction = instructionList[i + 1];
+                        if (nextInstruction.opcode == OpCodes.Call && nextInstruction.OperandIs(chanceInfo))
+                        {
+                            #if DEBUG
+                                Log.Message("Projectile.Draw ImpactSomething 1 of 1");
+                            #endif
+
+                            instruction.operand = 1f;
+                        }
+                    }
+
+                    yield return instruction;
+                }
+            }
+
+            private static Material AdjustedProjectileDrawMatSingle(Material original, Projectile instance)
+            {
+                if (instance.EquipmentDef.IsShotgun())
+                    return ExtendedProjectileProperties.Get(instance.def).PelletGraphic.MatSingle;
+                return original;
+            }
+
+        }
+
+
     }
 
 }

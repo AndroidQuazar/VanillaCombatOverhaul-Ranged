@@ -31,7 +31,7 @@ namespace VCORanged
 
             static VanillaFurnitureExpandedSecurity()
             {
-                if (ModCompatibilityCheck.VanillaFurnitureExpandedSecurity)
+                if (ModActive.VanillaFurnitureExpandedSecurity)
                 {
                     CompThingTracker_get_Illuminated = AccessTools.Property(NonPublicTypes.VanillaFurnitureExpandedSecurity.CompThingTracker, "Illuminated");
                 }

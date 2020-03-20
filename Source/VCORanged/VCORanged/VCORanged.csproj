@@ -82,7 +82,7 @@
     <Compile Include="StartupPatches.cs" />
     <Compile Include="VCORangedSettingsUtility.cs" />
     <Compile Include="VCORangedTuning.cs" />
-    <Compile Include="ModCompatibilityCheck.cs" />
+    <Compile Include="ModActive.cs" />
     <Compile Include="VCORangedUtility.cs" />
     <Compile Include="VCORangedSettings.cs" />
     <Compile Include="VCORanged.cs" />

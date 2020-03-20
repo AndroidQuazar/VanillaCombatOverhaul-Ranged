@@ -24,7 +24,7 @@ namespace VCORanged
             static VanillaFurnitureExpandedSecurity()
             {
 
-                if (ModCompatibilityCheck.VanillaFurnitureExpandedSecurity)
+                if (ModActive.VanillaFurnitureExpandedSecurity)
                 {
                     CompThingTracker = GenTypes.GetTypeInAnyAssembly("VFESecurity.CompThingTracker", "VFESecurity");
                 }
@@ -33,8 +33,7 @@ namespace VCORanged
 
             public static Type CompThingTracker;
 
-        }
-
+        }   
     }
 
 }

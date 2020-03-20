@@ -26,7 +26,7 @@ namespace VCORanged
                 {
                     float bodySizeDeviation = pawn.BodySize - 1;
                     if (bodySizeDeviation < 0)
-                        return 1 / bodySizeDeviation * VCORangedTuning.AccuracyScorePerTargetSize;
+                        return bodySizeDeviation * VCORangedTuning.AccuracyScorePerTargetSize * 2;
                     return bodySizeDeviation * VCORangedTuning.AccuracyScorePerTargetSize;
                 }
 
@@ -38,9 +38,9 @@ namespace VCORanged
                     float angleFlat = (caster.TrueCenter() - targetThing.TrueCenter()).AngleFlat();
                     float effectiveTargetWidth;
                     if (angleFlat < 90 || (angleFlat > 180 && angleFlat <= 270))
-                        effectiveTargetWidth = Mathf.Lerp(targetSize.x, targetSize.z, Mathf.Tan((angleFlat % 90) / 90));
+                        effectiveTargetWidth = Mathf.Lerp(targetSize.x, targetSize.z, (angleFlat % 90) / 90);
                     else
-                        effectiveTargetWidth = Mathf.Lerp(targetSize.z, targetSize.x, Mathf.Tan((angleFlat % 90) / 90));
+                        effectiveTargetWidth = Mathf.Lerp(targetSize.z, targetSize.x, (angleFlat % 90) / 90);
 
                     return (targetThing.def.fillPercent * effectiveTargetWidth - 1) * VCORangedTuning.AccuracyScorePerTargetSize;
                 }
@@ -72,7 +72,7 @@ namespace VCORanged
             var reportTarget = (TargetInfo)NonPublicFields.ShotReport_target.GetValue(report);
 
             // VFE Security - return 0 if target is illuminated by a searchlight
-            if (ModCompatibilityCheck.VanillaFurnitureExpandedSecurity && reportTarget.Thing is ThingWithComps thingWComps)
+            if (ModActive.VanillaFurnitureExpandedSecurity && reportTarget.Thing is ThingWithComps thingWComps)
             {
                 var thingTracker = thingWComps.AllComps.FirstOrDefault(c => c.GetType() == NonPublicTypes.VanillaFurnitureExpandedSecurity.CompThingTracker);
                 if (thingTracker != null && (bool)NonPublicProperties.VanillaFurnitureExpandedSecurity.CompThingTracker_get_Illuminated.GetValue(thingTracker))

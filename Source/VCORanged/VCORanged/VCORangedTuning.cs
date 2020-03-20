@@ -19,6 +19,7 @@ namespace VCORanged
         public const float AccuracyScorePerDistance = -0.5f;
         public const float AccuracyScoreWeather = -18;
         public const float AccuracyScoreCoveringGas = -18;
+        public const float AccuracyScoreTargetingMode = -18;
         public const float AccuracyScoreCover = 18;
         public const float AccuracyScoreProne = -8;
         public const float AccuracyScoreDarkness = -8;
