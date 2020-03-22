@@ -66,12 +66,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefModExtensions\ExtendedProjectileProperties.cs" />
+    <Compile Include="DefOf\StatDefOf.cs" />
+    <Compile Include="DefOf\FiringModeDefOf.cs" />
+    <Compile Include="Defs\FiringModeDef.cs" />
     <Compile Include="Enums\ShotgunDamageRoundMode.cs" />
+    <Compile Include="Gizmos\Command_SetFiringMode.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatchUtility.cs" />
+    <Compile Include="HarmonyPatches\Patch_Pawn_EquipmentTracker.cs" />
     <Compile Include="HarmonyPatches\Patch_Projectile.cs" />
     <Compile Include="HarmonyPatches\Patch_CoverUtility.cs" />
     <Compile Include="HarmonyPatches\Patch_CoverInfo.cs" />
     <Compile Include="HarmonyPatches\Patch_ShotReport.cs" />
+    <Compile Include="HarmonyPatches\Patch_Verb_Shoot.cs" />
     <Compile Include="HarmonyPatches\Patch_Verb_LaunchProjectile.cs" />
     <Compile Include="HarmonyPatches\Patch_VerbProperties.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches.cs" />
@@ -80,6 +86,9 @@
     <Compile Include="Reflection\NonPublicProperties.cs" />
     <Compile Include="Reflection\NonPublicFields.cs" />
     <Compile Include="StartupPatches.cs" />
+    <Compile Include="StatParts\StatPart_WeaponRecoil.cs" />
+    <Compile Include="StatWorkers\StatWorker_RecoilAmount.cs" />
+    <Compile Include="ThingComps\CompFiringModeSettable.cs" />
     <Compile Include="VCORangedSettingsUtility.cs" />
     <Compile Include="VCORangedTuning.cs" />
     <Compile Include="ModActive.cs" />

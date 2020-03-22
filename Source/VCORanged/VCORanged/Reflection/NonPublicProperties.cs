@@ -25,6 +25,11 @@ namespace VCORanged
         public static PropertyInfo ShotReport_get_FactorFromCoveringGas = AccessTools.Property(typeof(ShotReport), "FactorFromCoveringGas");
         #endregion
 
+        #region Verb
+        public static Func<Verb, int> Verb_get_ShotsPerBurst = (Func<Verb, int>)
+            Delegate.CreateDelegate(typeof(Func<Verb, int>), null, AccessTools.Property(typeof(Verb), "ShotsPerBurst").GetGetMethod(true));
+        #endregion
+
         [StaticConstructorOnStartup]
         public static class VanillaFurnitureExpandedSecurity
         {

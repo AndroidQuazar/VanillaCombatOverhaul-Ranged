@@ -29,6 +29,8 @@ namespace VCORanged
 
         public const float MaxDistForAccuracyBonus = 6;
 
+        public const float RecoilPerDamageAmount = 0.15f;
+
     }
 
 }

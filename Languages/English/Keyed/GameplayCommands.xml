@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+    <VCO.RangedModule.CommandSetFiringModeMulti>Set firing mode</VCO.RangedModule.CommandSetFiringModeMulti>
+    <VCO.RangedModule.CommandSetFiringModeDesc>Set how the weapon should be fired.</VCO.RangedModule.CommandSetFiringModeDesc>
+
+</LanguageData>

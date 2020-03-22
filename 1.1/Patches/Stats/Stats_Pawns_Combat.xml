@@ -17,4 +17,27 @@
         <xpath>/Defs/StatDef[defName="ShootingAccuracyPawn"]/postProcessCurve</xpath>
     </Operation>
 
+    <!-- Recoil -->
+    <Operation Class="PatchOperationSequence">
+        <operations>
+            <li Class="PatchOperationTest">
+                <xpath>/Defs/StatDef[defName="ShootingAccuracyPawn"]/parts</xpath>
+                <success>Invert</success>
+            </li>
+            <li Class="PatchOperationAdd">
+                <xpath>/Defs/StatDef[defName="ShootingAccuracyPawn"]</xpath>
+                <value>
+                    <parts/>
+                </value>
+            </li>
+        </operations>
+    </Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/StatDef[defName="ShootingAccuracyPawn"]/parts</xpath>
+        <value>
+            <li Class="VCORanged.StatPart_WeaponRecoil"/>
+        </value>
+    </Operation>
+
 </Patch>

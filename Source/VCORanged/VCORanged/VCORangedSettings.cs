@@ -20,6 +20,7 @@ namespace VCORanged
         private static Vector2 menuScrollPos;
         private static float menuViewHeight;
 
+        public static bool weaponRecoil = true;
         public static bool shotgunRevamp = true;
         public static ShotgunDamageRoundMode shotgunDamageRounding = ShotgunDamageRoundMode.Random;
         public static string shotgunThingDefNames = string.Empty;
@@ -40,6 +41,10 @@ namespace VCORanged
             GUI.color = defaultColor;
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.UpperLeft;
+            options.Gap();
+
+            // Weapon recoil
+            options.CheckboxLabeled("VCO.RangedModule.WeaponRecoil".Translate(), ref weaponRecoil, "VCO.RangedModule.WeaponRecoil_Desc".Translate());
             options.Gap();
 
             #region Shotguns
@@ -92,6 +97,7 @@ namespace VCORanged
             //    shotgunThingDefNames = defNameListString;
             //}
 
+            Scribe_Values.Look(ref weaponRecoil, "weaponRecoil", true);
             Scribe_Values.Look(ref shotgunRevamp, "shotgunRevamp", true);
             Scribe_Values.Look(ref shotgunDamageRounding, "shotgunDamageRounding", ShotgunDamageRoundMode.Random);
             Scribe_Values.Look(ref shotgunThingDefNames, "shotgunThingDefNames", String.Empty);

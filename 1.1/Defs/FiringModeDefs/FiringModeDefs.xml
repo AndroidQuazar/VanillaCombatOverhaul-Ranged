@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+    <VCORanged.FiringModeDef>
+        <defName>VCOR_SingleShot</defName>
+        <label>single-shot</label>
+        <uiIconTexPath>UI/Commands/FiringMode_SingleShot</uiIconTexPath>
+        <maxBurstShotCount>1</maxBurstShotCount>
+        <displayOrder>0</displayOrder>
+    </VCORanged.FiringModeDef>
+
+    <VCORanged.FiringModeDef>
+        <defName>VCOR_BurstFire</defName>
+        <label>burst-fire</label>
+        <uiIconTexPath>UI/Commands/FiringMode_BurstFire</uiIconTexPath>
+        <minBurstShotCount>2</minBurstShotCount>
+        <burstShotCountFactor>0.5</burstShotCountFactor>
+        <displayOrder>50</displayOrder>
+    </VCORanged.FiringModeDef>
+
+    <VCORanged.FiringModeDef>
+        <defName>VCOR_FullAuto</defName>
+        <label>full-auto</label>
+        <uiIconTexPath>UI/Commands/FiringMode_FullAuto</uiIconTexPath>
+        <minBurstShotCount>2</minBurstShotCount>
+        <displayOrder>100</displayOrder>
+    </VCORanged.FiringModeDef>
+
+</Defs>

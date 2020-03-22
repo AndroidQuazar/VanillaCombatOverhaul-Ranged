@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+    <StatDef>
+        <defName>VCOR_RecoilAmount</defName>
+        <workerClass>VCORanged.StatWorker_RecoilAmount</workerClass>
+        <label>recoil amount</label>
+        <description>How much this weapon reduces the accuracy of each consecutive shot in a burst by.</description>
+        <toStringStyle>FloatOne</toStringStyle>
+        <category>Weapon</category>
+        <displayPriorityInCategory>5111</displayPriorityInCategory>
+    </StatDef>
+
+</Defs>

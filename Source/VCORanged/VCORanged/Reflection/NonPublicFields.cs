@@ -30,6 +30,10 @@ namespace VCORanged
         public static FieldInfo ShotReport_coversOverallBlockChance = AccessTools.Field(typeof(ShotReport), "coversOverallBlockChance");
         #endregion
 
+        #region Verb
+        public static FieldInfo Verb_burstShotsLeft = AccessTools.Field(typeof(Verb), "burstShotsLeft");
+        #endregion
+
     }
 
 }

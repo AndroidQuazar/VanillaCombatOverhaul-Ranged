@@ -3,6 +3,9 @@
 
     <VCO.RangedModule.SettingsCategory>Vanilla Combat Overhaul - Ranged</VCO.RangedModule.SettingsCategory>
 
+    <VCO.RangedModule.WeaponRecoil>Weapon recoil</VCO.RangedModule.WeaponRecoil>
+    <VCO.RangedModule.WeaponRecoil_Desc>Whether or not ranged weapons will get accuracy penalties when burst-firing.</VCO.RangedModule.WeaponRecoil_Desc>
+
     <VCO.RangedModule.ShotgunRevamp>Shotgun revamp</VCO.RangedModule.ShotgunRevamp>
     <VCO.RangedModule.ShotgunRevamp_Desc>Whether or not shotguns will fire proper buckshot rounds.</VCO.RangedModule.ShotgunRevamp_Desc>
 

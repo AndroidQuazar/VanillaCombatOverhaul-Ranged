@@ -20,23 +20,6 @@ namespace VCORanged
         public static class CalculateOverallBlockChance
         {
 
-            public static bool _Prefix(LocalTargetInfo target, IntVec3 shooterLoc, Map map, ref float __result)
-            {
-                IntVec3 cell = target.Cell;
-                float num = 0f;
-                for (int i = 0; i < 8; i++)
-                {
-                    IntVec3 intVec = cell + GenAdj.AdjacentCells[i];
-                    CoverInfo coverInfo;
-                    if (intVec.InBounds(map) && NonPublicMethods.CoverUtility_TryFindAdjustedCoverInCell(shooterLoc, target, intVec, map, out coverInfo))
-                    {
-                        num += coverInfo.BlockChance;
-                    }
-                }
-                __result = num;
-                return false;
-            }
-
             public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, MethodBase method)
             {
                 #if DEBUG

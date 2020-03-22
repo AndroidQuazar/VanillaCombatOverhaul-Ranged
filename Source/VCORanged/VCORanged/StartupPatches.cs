@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using UnityEngine;
 using Verse;
+using Verse.AI;
 using RimWorld;
 using HarmonyLib;
 
@@ -28,6 +29,14 @@ namespace VCORanged
             for (int i = 0; i < thingDefs.Count; i++)
             {
                 var curDef = thingDefs[i];
+
+                // Add CompFiringModeSettable to anything that can attack
+                if (typeof(IAttackTargetSearcher).IsAssignableFrom(curDef.thingClass))
+                {
+                    if (curDef.comps == null)
+                        curDef.comps = new List<CompProperties>();
+                    curDef.comps.Add(new CompProperties(typeof(CompFiringModeSettable)));
+                }
                 
                 // Increase projectile speed across the board
                 if (curDef.projectile is ProjectileProperties projProps)
@@ -35,9 +44,19 @@ namespace VCORanged
                     projProps.speed *= 1 + (projProps.speed / 200);
                 }
 
-                // Basic shotgun autopatch
                 else if (curDef.IsWeaponUsingProjectiles)
                 {
+                    // Autopatch recoil amount
+                    if (curDef.statBases == null)
+                        curDef.statBases = new List<StatModifier>();
+                    if (!curDef.statBases.Any(s => s.stat == StatDefOf.VCOR_RecoilAmount))
+                    {
+                        var firstRangedVerb = curDef.Verbs.FirstOrDefault(v => typeof(Verb_LaunchProjectile).IsAssignableFrom(v.verbClass) && v.defaultProjectile != null);
+                        if (firstRangedVerb != null)
+                            curDef.SetStatBaseValue(StatDefOf.VCOR_RecoilAmount, firstRangedVerb.defaultProjectile.projectile.GetDamageAmount(null) * VCORangedTuning.RecoilPerDamageAmount);
+                    }
+
+                    // Basic shotgun autopatch
                     for (int j = 0; j < curDef.Verbs.Count; j++)
                     {
                         var curVerbProjectile = curDef.Verbs[j].defaultProjectile;
