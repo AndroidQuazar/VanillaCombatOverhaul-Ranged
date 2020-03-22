@@ -16,8 +16,8 @@ namespace VCORanged
     public class ExtendedProjectileProperties : DefModExtension
     {
 
-        public const string PelletTexPathStandard = "Things/Projectile/Pellet_Shotgun";
-        public const string PelletTexPathAdvanced = "Things/Projectile/Pellet_ChargeShotgun";
+        public const string PelletTexPathStandard = "Things/Projectile/Bullet_Small";
+        public const string PelletTexPathAdvanced = "Things/Projectile/Charge_Small";
 
         private static readonly ExtendedProjectileProperties defaultValues = new ExtendedProjectileProperties();
 
