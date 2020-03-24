@@ -116,19 +116,6 @@ namespace VCORanged
 
         public static bool IsShotgun(this ThingDef def) => VCORangedSettings.shotgunRevamp && def != null && def.defName.Contains("Shotgun"); // VCORangedSettings.shotgunThingDefs.Contains(def);
 
-        public static readonly SimpleCurve AccuracyScoreToPercentageCurve = new SimpleCurve()
-        {
-            new CurvePoint(-60, 0.01f),
-            new CurvePoint(-40, 0.02f),
-            new CurvePoint(-30, 0.04f),
-            new CurvePoint(-20, 0.10f),
-            new CurvePoint(-10, 0.25f),
-            new CurvePoint(0, 0.70f),
-            new CurvePoint(10, 0.90f),
-            new CurvePoint(20, 0.99f),
-            new CurvePoint(40, 1.00f),
-        };
-
     }
 
 }

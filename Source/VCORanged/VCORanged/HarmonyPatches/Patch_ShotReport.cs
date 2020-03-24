@@ -23,7 +23,7 @@ namespace VCORanged
             public static bool Prefix(ShotReport __instance, ref float __result)
             {
                 // Use score system
-                __result = VCORangedUtility.AccuracyScoreToPercentageCurve.Evaluate(__instance.AimOnTargetScore_StandardTarget());
+                __result = VCORangedTuning.AccuracyScoreToPercentageCurve.Evaluate(__instance.AimOnTargetScore_StandardTarget());
                 return false;
             }
 
@@ -36,7 +36,7 @@ namespace VCORanged
             public static bool Prefix(ShotReport __instance, ref float __result)
             {
                 // Use score system
-                __result = VCORangedUtility.AccuracyScoreToPercentageCurve.Evaluate(__instance.AimOnTargetScore_IgnoringPosture());
+                __result = VCORangedTuning.AccuracyScoreToPercentageCurve.Evaluate(__instance.AimOnTargetScore_IgnoringPosture());
                 return false;
             }
 
@@ -49,7 +49,7 @@ namespace VCORanged
             public static bool Prefix(ShotReport __instance, ref float __result)
             {
                 // Use score system
-                __result = VCORangedUtility.AccuracyScoreToPercentageCurve.Evaluate(__instance.AimOnTargetScore());
+                __result = VCORangedTuning.AccuracyScoreToPercentageCurve.Evaluate(__instance.AimOnTargetScore());
                 return false;
             }
 
@@ -62,7 +62,7 @@ namespace VCORanged
             public static bool Prefix(ShotReport __instance, ref float __result)
             {
                 // Use score system
-                __result = VCORangedUtility.AccuracyScoreToPercentageCurve.Evaluate(__instance.TotalHitScore());
+                __result = VCORangedTuning.AccuracyScoreToPercentageCurve.Evaluate(__instance.TotalHitScore());
                 return false;
             }
 
