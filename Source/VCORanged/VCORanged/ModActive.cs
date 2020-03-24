@@ -24,10 +24,21 @@ namespace VCORanged
             {
                 var curMod = allMods[i];
 
-                if (curMod.PackageId.Equals("VanillaExpanded.VFESecurity", StringComparison.CurrentCultureIgnoreCase))
+                if (curMod.PackageId.Equals("Roolo.DualWield", StringComparison.CurrentCultureIgnoreCase))
+                    DualWield = true;
+
+                else if (curMod.PackageId.Equals("roolo.RunAndGun", StringComparison.CurrentCultureIgnoreCase))
+                    RunAndGun = true;
+
+
+                else if (curMod.PackageId.Equals("VanillaExpanded.VFESecurity", StringComparison.CurrentCultureIgnoreCase))
                     VanillaFurnitureExpandedSecurity = true;
             }
         }
+
+        public static bool DualWield;
+
+        public static bool RunAndGun;
 
         public static bool VanillaFurnitureExpandedSecurity;
 

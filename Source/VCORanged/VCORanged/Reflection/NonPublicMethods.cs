@@ -35,6 +35,23 @@ namespace VCORanged
 
         public delegate bool TryFindAdjustedCoverInCell<A, B, C, D, E>(A first, B second, C third, D fourth, out E fifth);
 
+        [StaticConstructorOnStartup]
+        public static class DualWield
+        {
+
+            static DualWield()
+            {
+                if (ModActive.DualWield)
+                {
+                    Ext_Pawn_TryGetOffhandAttackVerb = (Func<Pawn, Thing, bool, Verb>)Delegate.CreateDelegate(typeof(Func<Pawn, Thing, bool, Verb>), null,
+                        AccessTools.Method(NonPublicTypes.DualWield.Ext_Pawn, "TryGetOffhandAttackVerb"));
+                }
+            }
+
+            public static Func<Pawn, Thing, bool, Verb> Ext_Pawn_TryGetOffhandAttackVerb;
+
+        }
+
     }
 
 }

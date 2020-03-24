@@ -18,6 +18,24 @@ namespace VCORanged
     {
 
         [StaticConstructorOnStartup]
+        public static class DualWield
+        {
+
+            static DualWield()
+            {
+
+                if (ModActive.DualWield)
+                {
+                    Ext_Pawn = GenTypes.GetTypeInAnyAssembly("DualWield.Ext_Pawn", "DualWield");
+                }
+
+            }
+
+            public static Type Ext_Pawn;
+
+        }
+
+        [StaticConstructorOnStartup]
         public static class VanillaFurnitureExpandedSecurity
         {
 
@@ -33,7 +51,7 @@ namespace VCORanged
 
             public static Type CompThingTracker;
 
-        }   
+        }
     }
 
 }

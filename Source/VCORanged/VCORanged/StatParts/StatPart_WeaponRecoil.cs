@@ -21,7 +21,7 @@ namespace VCORanged
         {
             if (req.HasThing)
             {
-                float recoilOffset = RecoilOffset(req.Thing);
+                float recoilOffset = FinalRecoilOffset(req.Thing);
                 if (recoilOffset != 0)
                     return $"{"VCO.RangedModule.StatsReport_WeaponRecoil".Translate()}: {recoilOffset.ToStringByStyle(parentStat.toStringStyle, ToStringNumberSense.Offset)}";
             }
@@ -33,21 +33,36 @@ namespace VCORanged
             // Adjust value based on recoil and burst shots left
             if (req.HasThing)
             {
-                val += RecoilOffset(req.Thing);
+                val += FinalRecoilOffset(req.Thing);
             }
         }
 
-        private float RecoilOffset(Thing thing)
+        private float FinalRecoilOffset(Thing reqThing)
         {
+            float offset = 0;
+
             // Determine recoil amount based on how many shots in a burst have been done so far
-            if (VCORangedSettings.weaponRecoil && thing is IAttackTargetSearcher searcher)
+            if (VCORangedSettings.weaponRecoil && reqThing is IAttackTargetSearcher searcher)
             {
                 var curVerb = searcher.CurrentEffectiveVerb;
-                if (curVerb != null && curVerb.Bursting && curVerb.EquipmentSource is ThingWithComps eq)
+                offset = RecoilOffset(curVerb);
+
+                // Dual wield - factor in off-hand verb
+                if (ModActive.DualWield && searcher is Pawn pawn)
                 {
-                    int burstShotsDone = NonPublicProperties.Verb_get_ShotsPerBurst(curVerb) - (int)NonPublicFields.Verb_burstShotsLeft.GetValue(curVerb);
-                    return -1 * burstShotsDone * eq.GetStatValue(StatDefOf.VCOR_RecoilAmount);
+                    var offhandVerb = NonPublicMethods.DualWield.Ext_Pawn_TryGetOffhandAttackVerb(pawn, pawn.LastAttackedTarget.Thing, true);
+                    offset = Mathf.Min(offset, RecoilOffset(offhandVerb));
                 }
+            }
+            return offset;
+        }
+
+        private float RecoilOffset(Verb verb)
+        {
+            if (verb != null && verb.Bursting && verb.EquipmentSource is ThingWithComps eq)
+            {
+                int burstShotsDone = NonPublicProperties.Verb_get_ShotsPerBurst(verb) - (int)NonPublicFields.Verb_burstShotsLeft.GetValue(verb);
+                return -1 * burstShotsDone * eq.GetStatValue(StatDefOf.VCOR_RecoilAmount);
             }
             return 0;
         }
