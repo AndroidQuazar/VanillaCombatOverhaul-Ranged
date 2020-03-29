@@ -114,7 +114,13 @@ namespace VCORanged
 
         public static bool IsShotgun(this Thing thing) => thing != null && thing.def.IsShotgun();
 
-        public static bool IsShotgun(this ThingDef def) => VCORangedSettings.shotgunRevamp && def != null && def.defName.Contains("Shotgun"); // VCORangedSettings.shotgunThingDefs.Contains(def);
+        public static bool IsShotgun(this ThingDef def)
+        {
+            var thingDefExtension = ThingDefExtension.Get(def);
+            return VCORangedSettings.shotgunRevamp && def != null && 
+                ((!thingDefExtension.isShotgun.HasValue && def.defName.Contains("Shotgun")) || (thingDefExtension.isShotgun.HasValue && thingDefExtension.isShotgun.Value));
+            // VCORangedSettings.shotgunThingDefs.Contains(def);
+        }
 
     }
 

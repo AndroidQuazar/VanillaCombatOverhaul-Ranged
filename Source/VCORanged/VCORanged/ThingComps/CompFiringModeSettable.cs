@@ -21,7 +21,7 @@ namespace VCORanged
 
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
         {
-            if (SearcherParent.CurrentEffectiveVerb is Verb_LaunchProjectile)
+            if ((Prefs.DevMode || parent.Faction.IsPlayer) && SearcherParent.CurrentEffectiveVerb is Verb_LaunchProjectile projVerb && !(projVerb is Verb_ShootOneUse))
             {
                 yield return new Command_SetFiringMode
                 {
@@ -45,10 +45,6 @@ namespace VCORanged
         {
             base.PostExposeData();
             Scribe_Defs.Look(ref firingMode, "firingMode");
-
-            // Save compatibility
-            //if (Scribe.mode == LoadSaveMode.PostLoadInit && firingMode == null)
-            //    firingMode = FiringModeDefOf.VCOR_FullAuto;
         }
 
         public void TrySetFiringMode(FiringModeDef newFiringMode)

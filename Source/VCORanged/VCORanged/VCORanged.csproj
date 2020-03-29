@@ -65,6 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefModExtensions\ThingDefExtension.cs" />
     <Compile Include="DefModExtensions\ExtendedProjectileProperties.cs" />
     <Compile Include="DefOf\StatDefOf.cs" />
     <Compile Include="DefOf\FiringModeDefOf.cs" />
