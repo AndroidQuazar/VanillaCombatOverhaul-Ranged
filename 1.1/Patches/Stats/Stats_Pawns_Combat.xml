@@ -19,6 +19,7 @@
 
     <!-- Recoil -->
     <Operation Class="PatchOperationSequence">
+        <success>Always</success>
         <operations>
             <li Class="PatchOperationTest">
                 <xpath>/Defs/StatDef[defName="ShootingAccuracyPawn"]/parts</xpath>
